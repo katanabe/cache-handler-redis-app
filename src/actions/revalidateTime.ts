@@ -2,6 +2,7 @@
 
 import { revalidateTag } from "next/cache";
 
-export default async function revalidate() {
+export const revalidateTime = async () => {
   revalidateTag("time-data");
 }
+

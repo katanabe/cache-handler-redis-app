@@ -1,13 +1,15 @@
 import "./global.css";
 
-export default function RootLayout({
+const Layout = async ({
   children,
 }: {
   children: React.ReactNode;
-}) {
+}) => {
   return (
     <html lang="en">
       <body>{children}</body>
     </html>
   );
 }
+
+export default Layout;

@@ -1,13 +1,19 @@
+// https://nextjs.org/docs/app/building-your-application/deploying#configuring-caching
+// cacheMaxMemorySizeを0 にすると in-memory cache が無効になる
+const DISABLED_IN_MEMORY_CACHE_SIZE = 0; 
+
+const DEFAULT_FILE_CACHE_SIZE = 52428800; // default 50 MB
+
+const useRedisCache = !!process.env.REDIS_URL;
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  cacheHandler:
-    process.env.NODE_ENV === "production"
-      ? require.resolve("./cache-handler.js")
-      : undefined,
-  env: {
-    NEXT_PUBLIC_REDIS_INSIGHT_URL:
-      process.env.REDIS_INSIGHT_URL ?? "http://localhost:8001",
-  },
+  cacheMaxMemorySize: useRedisCache ?
+    DISABLED_IN_MEMORY_CACHE_SIZE :
+    DEFAULT_FILE_CACHE_SIZE,
+  cacheHandler: useRedisCache ?
+    require.resolve("./cache-handler.mjs") :
+    undefined
 };
 
 module.exports = nextConfig;

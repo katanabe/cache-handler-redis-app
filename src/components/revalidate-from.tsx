@@ -1,7 +1,7 @@
 "use client";
 
 import { useFormStatus } from "react-dom";
-import revalidate from "./server-actions";
+import { revalidateTime } from "@/actions/revalidateTime";
 
 function RevalidateButton() {
   const { pending } = useFormStatus();
@@ -20,7 +20,7 @@ function RevalidateButton() {
 
 export function RevalidateFrom() {
   return (
-    <form className="revalidate-from" action={revalidate}>
+    <form className="revalidate-from" action={revalidateTime}>
       <RevalidateButton />
     </form>
   );
